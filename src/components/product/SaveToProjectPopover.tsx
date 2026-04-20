@@ -39,9 +39,10 @@ const INITIAL_PROJECTS: ProjectData[] = [
 type SaveToProjectPopoverProps = {
   onClose: () => void;
   hideQuickSave?: boolean;
+  onSelectProject?: (projectName: string) => void;
 };
 
-export default function SaveToProjectPopover({ onClose, hideQuickSave = false }: SaveToProjectPopoverProps) {
+export default function SaveToProjectPopover({ onClose, hideQuickSave = false, onSelectProject }: SaveToProjectPopoverProps) {
   const [projects, setProjects] = useState<ProjectData[]>(INITIAL_PROJECTS);
   const [expandedProjects, setExpandedProjects] = useState<Record<number, boolean>>({
     0: true,
@@ -128,7 +129,10 @@ export default function SaveToProjectPopover({ onClose, hideQuickSave = false }:
     >
       {/* Quick Save — hidden on product detail page */}
       {!hideQuickSave && (
-        <button className="w-full text-left px-5 py-3.5 border-b border-[var(--color-border)] text-[14px] font-medium uppercase tracking-wide cursor-pointer hover:bg-[var(--color-grey-50)] transition-colors duration-150">
+        <button
+          onClick={() => onSelectProject?.("Quick Saves")}
+          className="w-full text-left px-5 py-3.5 border-b border-[var(--color-border)] text-[14px] font-medium uppercase tracking-wide cursor-pointer hover:bg-[var(--color-grey-50)] transition-colors duration-150"
+        >
           QUICK SAVE
         </button>
       )}
@@ -182,13 +186,22 @@ export default function SaveToProjectPopover({ onClose, hideQuickSave = false }:
       {/* Project list */}
       {projects.map((project, index) => (
         <div key={`${project.name}-${index}`} className="border-b border-[var(--color-border)] last:border-b-0">
-          <button
-            onClick={() => toggleProject(index)}
-            className="w-full flex items-center justify-between px-5 py-3.5 text-[14px] font-medium uppercase tracking-wide cursor-pointer hover:bg-[var(--color-grey-50)] transition-colors duration-150"
-          >
-            <span>{project.name}</span>
-            <ChevronIcon open={!!expandedProjects[index]} />
-          </button>
+          <div className="flex items-center w-full">
+            {/* Click project name → save to project root */}
+            <button
+              onClick={() => onSelectProject?.(project.name)}
+              className="flex-1 text-left px-5 py-3.5 text-[14px] font-medium uppercase tracking-wide cursor-pointer hover:bg-[var(--color-grey-50)] transition-colors duration-150"
+            >
+              {project.name}
+            </button>
+            {/* Click chevron → expand/collapse subfolders */}
+            <button
+              onClick={() => toggleProject(index)}
+              className="px-4 py-3.5 cursor-pointer hover:bg-[var(--color-grey-50)] transition-colors duration-150"
+            >
+              <ChevronIcon open={!!expandedProjects[index]} />
+            </button>
+          </div>
 
           <AnimatePresence>
             {expandedProjects[index] && (
@@ -202,6 +215,7 @@ export default function SaveToProjectPopover({ onClose, hideQuickSave = false }:
                 {project.subFolders.map((folder) => (
                   <button
                     key={folder}
+                    onClick={() => onSelectProject?.(`${project.name} / ${folder}`)}
                     className="w-full text-left pl-11 pr-5 py-2.5 text-[13px] font-medium uppercase tracking-wide cursor-pointer hover:bg-[var(--color-grey-50)] transition-colors duration-150"
                   >
                     {folder}

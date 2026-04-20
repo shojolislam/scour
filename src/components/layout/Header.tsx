@@ -119,17 +119,19 @@ export default function Header({ onFilterClick }: HeaderProps) {
           </div>
         </div>
 
-        {/* Row 2: Mobile search + filters — only on mobile */}
-        <div className="flex md:hidden items-center bg-white border-t border-[var(--color-border)]">
-          <button onClick={handleSearchClick} className="flex-1 flex items-center gap-1.5 px-4 py-2.5 cursor-pointer">
-            <SearchIcon className="size-5 text-[var(--color-text-subtle)]" />
-            <span className="text-base text-[var(--color-text-subtle)]">Search 100,00+ items</span>
-          </button>
-          <button onClick={onFilterClick} className="flex items-center gap-2 px-4 py-2.5 shrink-0 cursor-pointer">
-            <span className="text-sm font-medium text-[var(--color-text-subtle)]">Filters</span>
-            <FilterIcon className="size-5 text-[var(--color-text-subtle)]" />
-          </button>
-        </div>
+        {/* Row 2: Mobile search + filters — only on homepage mobile */}
+        {pathname === "/" && (
+          <div className="flex md:hidden items-center bg-white border-t border-[var(--color-border)]">
+            <button onClick={handleSearchClick} className="flex-1 flex items-center gap-1.5 px-4 py-2.5 cursor-pointer">
+              <SearchIcon className="size-5 text-[var(--color-text-subtle)]" />
+              <span className="text-base text-[var(--color-text-subtle)]">Search 100,00+ items</span>
+            </button>
+            <button onClick={onFilterClick} className="flex items-center gap-2 px-4 py-2.5 shrink-0 cursor-pointer">
+              <span className="text-sm font-medium text-[var(--color-text-subtle)]">Filters</span>
+              <FilterIcon className="size-5 text-[var(--color-text-subtle)]" />
+            </button>
+          </div>
+        )}
       </header>
 
       <CategoriesDropdown isOpen={categoriesOpen} onClose={() => setCategoriesOpen(false)} />
