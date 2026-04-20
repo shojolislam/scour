@@ -69,13 +69,11 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             {product.title}
           </h1>
 
-          {/* Seller / meta row */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 text-sm text-[var(--color-text-subtle)]">
+          {/* Seller / meta + price */}
+          <div className="flex items-start justify-between">
+            <div className="flex flex-col gap-1 text-sm text-[var(--color-text-default)]">
               <span>{product.seller}</span>
-              <span>&middot;</span>
               <span>Vienna, Austria</span>
-              <span>&middot;</span>
               <span>Mar 2025</span>
             </div>
             <span className="text-base font-medium">
