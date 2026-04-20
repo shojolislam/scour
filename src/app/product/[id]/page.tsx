@@ -21,6 +21,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   const vendor = vendors[0];
 
   const [showSavePopover, setShowSavePopover] = useState(false);
+  const [quickSaved, setQuickSaved] = useState(false);
   const handleCloseSavePopover = useCallback(() => setShowSavePopover(false), []);
 
   // Pick 4 related products (excluding current)
@@ -55,9 +56,14 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         <div className="w-[40%] shrink-0">
           <div className="relative w-full aspect-[2/3] bg-[var(--color-grey-50)] overflow-hidden">
             <img src={product.image} alt={product.title} className="absolute inset-0 w-full h-full object-cover" />
-            {/* Bookmark button */}
-            <button className="absolute top-0 left-0 p-3 backdrop-blur-[7.5px] bg-white/50 z-10 cursor-pointer">
-              <BookmarkIcon className="size-6 text-[var(--color-text-default)]" />
+            {/* Bookmark button — quick saves the product */}
+            <button
+              onClick={() => setQuickSaved(true)}
+              className={`absolute top-0 left-0 p-3 backdrop-blur-[7.5px] z-10 cursor-pointer transition-colors duration-150 ${
+                quickSaved ? "bg-[var(--color-action-primary)]" : "bg-white/50"
+              }`}
+            >
+              <BookmarkIcon className={`size-6 ${quickSaved ? "text-white" : "text-[var(--color-text-default)]"}`} />
             </button>
           </div>
         </div>
@@ -96,7 +102,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               </button>
               {showSavePopover && (
                 <div className="absolute top-full left-0 mt-2 z-50">
-                  <SaveToProjectPopover onClose={handleCloseSavePopover} />
+                  <SaveToProjectPopover onClose={handleCloseSavePopover} hideQuickSave />
                 </div>
               )}
             </div>
