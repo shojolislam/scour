@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import FilterAccordion from "../filters/FilterAccordion";
 import FilterCheckbox from "../filters/FilterCheckbox";
 import FilterRadio from "../filters/FilterRadio";
@@ -8,8 +9,14 @@ import FilterSearch from "../filters/FilterSearch";
 import FilterRangeInputs from "../filters/FilterRangeInputs";
 import DimensionToggle from "../filters/DimensionToggle";
 import RangeSlider from "../filters/RangeSlider";
+import { CloseIcon } from "../ui/Icons";
 
-export default function Sidebar() {
+type SidebarProps = {
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+};
+
+function SidebarContent() {
   /* ── Sort by (radio / single select) ── */
   const [sortBy, setSortBy] = useState("default");
 
@@ -62,7 +69,7 @@ export default function Sidebar() {
   const quantityCount = quantityChanged ? 1 : 0;
 
   return (
-    <aside className="fixed left-0 top-[60px] bottom-0 w-[256px] overflow-y-auto bg-white z-30">
+    <>
       {/* Sort by — radio buttons (single select) */}
       <FilterAccordion label="Sort by" activeCount={sortByCount}>
         <div className="flex flex-col gap-2.5">
@@ -193,6 +200,55 @@ export default function Sidebar() {
           ))}
         </div>
       </FilterAccordion>
-    </aside>
+    </>
+  );
+}
+
+export default function Sidebar({ mobileOpen = false, onMobileClose }: SidebarProps) {
+  return (
+    <>
+      {/* Desktop sidebar — fixed, visible on lg+ */}
+      <aside className="hidden lg:block fixed left-0 top-[60px] bottom-0 w-[256px] overflow-y-auto bg-white z-30">
+        <SidebarContent />
+      </aside>
+
+      {/* Mobile full-screen filter drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-white flex flex-col lg:hidden"
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium uppercase">Filters</span>
+              </div>
+              <button onClick={onMobileClose} className="cursor-pointer">
+                <CloseIcon className="size-5" />
+              </button>
+            </div>
+
+            {/* Scrollable filters */}
+            <div className="flex-1 overflow-y-auto">
+              <SidebarContent />
+            </div>
+
+            {/* Bottom sticky bar */}
+            <div className="flex items-center justify-between px-4 py-3 border-t border-[var(--color-border)]">
+              <button className="text-sm font-medium uppercase text-[var(--color-text-default)] cursor-pointer">
+                CLEAR
+              </button>
+              <button className="bg-[var(--color-action-primary)] text-white text-sm font-bold uppercase px-6 py-3 cursor-pointer">
+                APPLY FILTERS
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

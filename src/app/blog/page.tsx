@@ -149,9 +149,9 @@ function BlogListingContent() {
 
       <main className="flex flex-col">
         {/* ───────────── Hero Article ───────────── */}
-        <section className="p-5">
+        <section className="p-3 md:p-5">
           {/* Image placeholder */}
-          <div className="w-full h-[539px] bg-[var(--color-grey-50)] overflow-hidden">
+          <div className="w-full h-[250px] md:h-[400px] lg:h-[539px] bg-[var(--color-grey-50)] overflow-hidden">
             <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&h=539&fit=crop&q=80" alt="Timeless Treasures" className="w-full h-full object-cover" />
           </div>
 
@@ -166,34 +166,34 @@ function BlogListingContent() {
           </div>
 
           {/* Title */}
-          <h1 className="text-[28px] font-semibold uppercase mt-3 leading-[1.15]">
+          <h1 className="text-xl md:text-[28px] font-semibold uppercase mt-3 leading-[1.15]">
             {heroArticle.title}
           </h1>
 
           {/* Description */}
-          <p className="text-lg text-[var(--color-text-default)] mt-3 leading-[1.5]">
+          <p className="text-sm md:text-lg text-[var(--color-text-default)] mt-3 leading-[1.5]">
             {heroArticle.description}
           </p>
 
           {/* CTA */}
           <Link
             href={`/blog/${heroArticle.slug}`}
-            className="inline-block mt-5 border border-[var(--color-action-primary)] px-[22px] py-[12px] text-base font-bold uppercase hover:bg-[var(--color-grey-50)] transition-colors"
+            className="inline-block mt-5 border border-[var(--color-action-primary)] px-4 py-2.5 md:px-[22px] md:py-[12px] text-sm md:text-base font-bold uppercase hover:bg-[var(--color-grey-50)] transition-colors"
           >
             View Article
           </Link>
         </section>
 
         {/* ───────────── Category Tabs + Blog Grid ───────────── */}
-        <div id="blog-posts" className="mx-5 border-b border-[var(--color-border)]">
-          <div className="flex gap-8">
+        <div id="blog-posts" className="mx-3 md:mx-5 border-b border-[var(--color-border)]">
+          <div className="flex gap-4 md:gap-8 overflow-x-auto">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.slug;
               return (
                 <button
                   key={tab.slug}
                   onClick={() => setActiveTab(tab.slug)}
-                  className={`py-4 text-base font-medium uppercase cursor-pointer transition-colors ${
+                  className={`py-4 text-sm md:text-base font-medium uppercase cursor-pointer transition-colors whitespace-nowrap ${
                     isActive
                       ? "text-[var(--color-text-default)] border-b-2 border-[var(--color-text-default)]"
                       : "text-[var(--color-text-subtle)] hover:text-[var(--color-text-default)]"
@@ -207,16 +207,16 @@ function BlogListingContent() {
         </div>
 
         {/* ───────────── Blog Post Grid ───────────── */}
-        <section className="p-5">
-          <div className="flex flex-wrap gap-10">
+        <section className="p-3 md:p-5">
+          <div className="flex flex-wrap gap-5 md:gap-10">
             {filteredPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="flex gap-5 w-[calc(50%-20px)] group"
+                className="flex flex-col md:flex-row gap-3 md:gap-5 w-full md:w-[calc(50%-20px)] group"
               >
                 {/* Image */}
-                <div className="w-[335px] h-[200px] bg-[var(--color-grey-50)] shrink-0 overflow-hidden">
+                <div className="w-full md:w-[335px] h-[200px] bg-[var(--color-grey-50)] shrink-0 overflow-hidden">
                   <img src={[
                     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=335&h=200&fit=crop&q=80",
                     "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=335&h=200&fit=crop&q=80",
@@ -257,7 +257,7 @@ function BlogListingContent() {
         </section>
 
         {/* ───────────── View All Link ───────────── */}
-        <div className="mx-5 border-t border-[var(--color-border)] py-4 flex justify-center">
+        <div className="mx-3 md:mx-5 border-t border-[var(--color-border)] py-4 flex justify-center">
           <button
             onClick={() => setActiveTab("all")}
             className="text-base font-medium text-[var(--color-text-subtle)] uppercase cursor-pointer hover:text-[var(--color-text-default)] transition-colors"

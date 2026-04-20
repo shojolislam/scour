@@ -100,7 +100,7 @@ function SimpleProductCard({
   image?: string;
 }) {
   return (
-    <div className="flex flex-col flex-1 min-w-0">
+    <div className="flex flex-col flex-1 min-w-[160px] md:min-w-0 shrink-0 md:shrink">
       <div className="w-full aspect-[2/3] bg-[var(--color-grey-50)] overflow-hidden">
         {image && <img src={image} alt={title} className="w-full h-full object-cover" />}
       </div>
@@ -130,17 +130,17 @@ export default function InspirationPage() {
       <div className="h-[60px]" />
 
       {/* Main content - vertical stack with 80px gap between major sections */}
-      <main className="flex flex-col gap-[80px]">
+      <main className="flex flex-col gap-10 md:gap-[60px] lg:gap-[80px]">
         {/* ───────────────────────── 2. Hero Section ───────────────────────── */}
-        <section className="p-5">
-          <div className="relative w-full h-[640px] bg-[var(--color-grey-50)] overflow-hidden">
+        <section className="p-3 md:p-5">
+          <div className="relative w-full h-[300px] md:h-[480px] lg:h-[640px] bg-[var(--color-grey-50)] overflow-hidden">
             <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&h=640&fit=crop&q=80" alt="Timeless Treasures" className="absolute inset-0 w-full h-full object-cover" />
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-[rgba(0,0,0,0.33)]" />
 
             {/* Bottom-left content */}
-            <div className="absolute bottom-10 left-10 flex flex-col gap-4">
-              <h1 className="text-[40px] font-semibold uppercase text-white tracking-wide leading-[1.1] max-w-[739px]">
+            <div className="absolute bottom-5 left-5 md:bottom-10 md:left-10 flex flex-col gap-3 md:gap-4">
+              <h1 className="text-2xl md:text-[32px] lg:text-[40px] font-semibold uppercase text-white tracking-wide leading-[1.1] max-w-[739px]">
                 Timeless Treasures: A Journey Through French Antiques
               </h1>
               <Link
@@ -152,7 +152,7 @@ export default function InspirationPage() {
             </div>
 
             {/* Bottom-right carousel dots */}
-            <div className="absolute bottom-10 right-10 flex items-center gap-2">
+            <div className="absolute bottom-5 right-5 md:bottom-10 md:right-10 flex items-center gap-2">
               <span className="w-6 h-1 bg-white rounded-[1px]" />
               <span className="w-6 h-1 bg-white/[0.33] rounded-[1px]" />
               <span className="w-6 h-1 bg-white/[0.33] rounded-[1px]" />
@@ -161,13 +161,13 @@ export default function InspirationPage() {
         </section>
 
         {/* ───────── 3. Explore Based on Perspective ───────── */}
-        <section className="p-5">
-          <h2 className="text-[28px] font-semibold uppercase text-center mb-10">
+        <section className="p-3 md:p-5">
+          <h2 className="text-xl md:text-[28px] font-semibold uppercase text-center mb-6 md:mb-10">
             Explore Based on Perspective
           </h2>
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap gap-3 md:gap-5">
             {perspectiveCards.map((card) => (
-              <div key={card.title} className="w-[375px]">
+              <div key={card.title} className="w-full sm:w-[calc(50%-10px)] lg:w-[375px]">
                 <CollectionImageGrid images={card.images} />
                 <div className="py-6">
                   <p className="text-base font-semibold uppercase mb-1">{card.title}</p>
@@ -179,11 +179,11 @@ export default function InspirationPage() {
         </section>
 
         {/* ───────────── 4. Featured Article Section ───────────── */}
-        <section className="p-5">
-          <div className="flex gap-6">
+        <section className="p-3 md:p-5">
+          <div className="flex flex-col lg:flex-row gap-6">
             {/* Left - large image */}
             <div className="shrink-0">
-              <div className="w-[640px] h-[854px] bg-[var(--color-grey-50)] overflow-hidden">
+              <div className="w-full lg:w-[640px] h-[300px] md:h-[500px] lg:h-[854px] bg-[var(--color-grey-50)] overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=640&h=854&fit=crop&q=80" alt="Featured article" className="w-full h-full object-cover" />
               </div>
               <p className="text-base font-medium text-[var(--color-text-subtle)] opacity-50 mt-3">
@@ -211,13 +211,13 @@ export default function InspirationPage() {
               </p>
               <Link
                 href="/blog/whats-inside-kendell-jenners-home"
-                className="self-start border border-[var(--color-action-primary)] px-[22px] py-[12px] text-base font-bold uppercase hover:bg-[var(--color-grey-50)] transition-colors cursor-pointer mb-10"
+                className="self-start border border-[var(--color-action-primary)] px-4 py-2.5 md:px-[22px] md:py-[12px] text-sm md:text-base font-bold uppercase hover:bg-[var(--color-grey-50)] transition-colors cursor-pointer mb-6 md:mb-10"
               >
                 View Article
               </Link>
 
               {/* 3 product cards */}
-              <div className="flex gap-5 mt-auto">
+              <div className="flex gap-3 md:gap-5 mt-auto overflow-x-auto">
                 {featuredProducts.map((p) => (
                   <SimpleProductCard key={p.title} title={p.title} seller={p.seller} price={p.price} image={p.image} />
                 ))}
@@ -227,8 +227,8 @@ export default function InspirationPage() {
         </section>
 
         {/* ───────────── 5. Two Blog Cards Section ───────────── */}
-        <section className="p-5">
-          <div className="flex gap-5">
+        <section className="p-3 md:p-5">
+          <div className="flex flex-col md:flex-row gap-5">
             {/* Provenance card */}
             <div className="flex-1 min-w-0">
               <Link
@@ -278,14 +278,14 @@ export default function InspirationPage() {
         </section>
 
         {/* ───────────── 6. Focus Article Section ───────────── */}
-        <section className="p-5">
+        <section className="p-3 md:p-5">
           <Link
             href="/blog?category=in-focus"
             className="block text-base font-bold uppercase text-[#bfbba8] mb-4 hover:opacity-80 transition-opacity"
           >
             Focus Article
           </Link>
-          <div className="relative w-full h-[640px] bg-[var(--color-grey-50)] overflow-hidden">
+          <div className="relative w-full h-[300px] md:h-[480px] lg:h-[640px] bg-[var(--color-grey-50)] overflow-hidden">
             <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&h=640&fit=crop&q=80" alt="Poul Kjaerholm" className="absolute inset-0 w-full h-full object-cover" />
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-[rgba(0,0,0,0.5)]" />
@@ -293,14 +293,14 @@ export default function InspirationPage() {
             {/* Center-left name */}
             <Link
               href="/blog/poul-kjaerholm"
-              className="absolute left-10 top-1/2 -translate-y-1/2 text-[40px] font-semibold text-white hover:opacity-80 transition-opacity"
+              className="absolute left-5 md:left-10 top-1/2 -translate-y-1/2 text-2xl md:text-[32px] lg:text-[40px] font-semibold text-white hover:opacity-80 transition-opacity"
             >
               POUL KJ&AElig;RHOLM
             </Link>
 
             {/* Bottom-right block */}
-            <div className="absolute bottom-10 right-10 flex flex-col items-end gap-4 max-w-[500px]">
-              <h3 className="text-[28px] font-semibold text-white uppercase text-right leading-[1.15]">
+            <div className="absolute bottom-5 right-5 md:bottom-10 md:right-10 flex flex-col items-end gap-3 md:gap-4 max-w-[300px] md:max-w-[500px]">
+              <h3 className="text-lg md:text-xl lg:text-[28px] font-semibold text-white uppercase text-right leading-[1.15]">
                 The Architect of Minimalism: Poul Kj&aelig;rholm&apos;s Enduring Legacy
               </h3>
               <Link
@@ -314,8 +314,8 @@ export default function InspirationPage() {
         </section>
 
         {/* ───────────── 7. Product Row ───────────── */}
-        <section className="px-5 pb-5">
-          <div className="flex gap-5">
+        <section className="px-3 md:px-5 pb-5">
+          <div className="flex gap-3 md:gap-5 overflow-x-auto md:overflow-x-visible flex-nowrap md:flex-wrap">
             {bottomProducts.map((p) => (
               <SimpleProductCard key={p.title} title={p.title} seller={p.seller} price={p.price} image={p.image} />
             ))}
@@ -323,7 +323,7 @@ export default function InspirationPage() {
         </section>
 
         {/* ───────────── 8. View Blog Archive Link ───────────── */}
-        <div className="mx-5 border-t border-b border-[var(--color-border)] py-4 flex justify-end">
+        <div className="mx-3 md:mx-5 border-t border-b border-[var(--color-border)] py-4 flex justify-end">
           <Link
             href="/blog"
             className="text-base font-bold uppercase text-[#bfbba8] hover:opacity-80 transition-opacity"
@@ -333,17 +333,17 @@ export default function InspirationPage() {
         </div>
 
         {/* ───────── 9. Explore Based on Room ───────── */}
-        <section className="p-5">
-          <div className="flex flex-wrap gap-5">
+        <section className="p-3 md:p-5">
+          <div className="flex flex-wrap gap-3 md:gap-5">
             {/* Large title card inline */}
-            <div className="w-[375px] flex items-end pb-6">
-              <h2 className="text-[40px] font-semibold uppercase leading-[1.1]">
+            <div className="w-full sm:w-[calc(50%-10px)] lg:w-[375px] flex items-end pb-6">
+              <h2 className="text-2xl md:text-[32px] lg:text-[40px] font-semibold uppercase leading-[1.1]">
                 Explore Based on Room
               </h2>
             </div>
 
             {roomCards.map((card) => (
-              <div key={card.title} className="w-[375px]">
+              <div key={card.title} className="w-full sm:w-[calc(50%-10px)] lg:w-[375px]">
                 <CollectionImageGrid images={card.images} />
                 <div className="py-6">
                   <p className="text-base font-semibold uppercase mb-1">{card.title}</p>

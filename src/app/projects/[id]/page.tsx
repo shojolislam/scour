@@ -133,8 +133,8 @@ export default function ProjectDetailPage() {
       <div className="h-[60px]" />
 
       {/* Project title row */}
-      <div className="flex items-center justify-between px-5 pt-6 pb-4">
-        <h1 className="text-[28px] font-semibold uppercase leading-tight">
+      <div className="flex items-center justify-between px-3 md:px-5 pt-6 pb-4">
+        <h1 className="text-xl md:text-[28px] font-semibold uppercase leading-tight">
           {projectName}
         </h1>
         <div className="flex items-center gap-1">
@@ -151,7 +151,7 @@ export default function ProjectDetailPage() {
       </div>
 
       {/* Category tabs */}
-      <div className="border-b border-[var(--color-border)] px-5 flex items-center gap-6 overflow-x-auto">
+      <div className="border-b border-[var(--color-border)] px-3 md:px-5 flex items-center gap-4 md:gap-6 overflow-x-auto">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -202,8 +202,8 @@ export default function ProjectDetailPage() {
         )}
       </div>
 
-      {/* Product grid - 4-column masonry */}
-      <div className="p-5 columns-4 gap-5">
+      {/* Product grid - responsive masonry */}
+      <div className="p-3 md:p-5 columns-2 md:columns-3 lg:columns-4 gap-3 md:gap-5">
         {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

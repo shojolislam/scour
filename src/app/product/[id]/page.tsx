@@ -22,6 +22,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
   const [showSavePopover, setShowSavePopover] = useState(false);
   const [quickSaved, setQuickSaved] = useState(false);
+  const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
   const handleCloseSavePopover = useCallback(() => setShowSavePopover(false), []);
 
   // Pick 4 related products (excluding current)
@@ -35,7 +36,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
       <div className="h-[60px]" />
 
       {/* Breadcrumb */}
-      <div className="flex items-center gap-1 px-5 py-4 text-sm uppercase">
+      <div className="flex items-center gap-1 px-3 md:px-5 py-4 text-xs md:text-sm uppercase">
         <Link
           href="/"
           className="text-[var(--color-text-default)] hover:underline font-medium"
@@ -51,27 +52,69 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
       </div>
 
       {/* Main content: two columns */}
-      <div className="flex gap-8 px-5 pb-12">
-        {/* Left column - product image */}
-        <div className="w-[40%] shrink-0">
-          <div className="relative w-full aspect-[2/3] bg-[var(--color-grey-50)] overflow-hidden">
-            <img src={product.image} alt={product.title} className="absolute inset-0 w-full h-full object-cover" />
-            {/* Bookmark button — quick saves the product */}
-            <button
-              onClick={() => setQuickSaved(true)}
-              className={`absolute top-0 left-0 p-3 backdrop-blur-[7.5px] z-10 cursor-pointer transition-colors duration-150 ${
-                quickSaved ? "bg-[var(--color-action-primary)]" : "bg-white/50"
-              }`}
-            >
-              <BookmarkIcon className={`size-6 ${quickSaved ? "text-white" : "text-[var(--color-text-default)]"}`} />
-            </button>
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8 px-3 md:px-5 pb-12">
+        {/* Left column - scrollable product images */}
+        <div className="w-full md:w-[40%] shrink-0">
+          <div className="flex flex-col gap-2 md:gap-4">
+            {/* Primary image with bookmark */}
+            <div className="relative w-full aspect-[2/3] bg-[var(--color-grey-50)] overflow-hidden">
+              <img src={product.image} alt={product.title} className="absolute inset-0 w-full h-full object-cover" />
+              {/* Bookmark button — quick saves the product */}
+              <button
+                onClick={() => {
+                  if (quickSaved) {
+                    setShowRemoveConfirm(true);
+                  } else {
+                    setQuickSaved(true);
+                  }
+                }}
+                className={`absolute top-0 left-0 p-3 backdrop-blur-[7.5px] z-10 cursor-pointer transition-colors duration-150 ${
+                  quickSaved ? "bg-[var(--color-action-primary)]" : "bg-white/50"
+                }`}
+              >
+                <BookmarkIcon className={`size-6 ${quickSaved ? "text-white" : "text-[var(--color-text-default)]"}`} />
+              </button>
+              {/* Remove from Quick Save confirmation popover */}
+              {showRemoveConfirm && (
+                <div className="absolute top-12 left-0 z-50 w-[220px] bg-white rounded-[4px] p-4 flex flex-col gap-3" style={{ boxShadow: "0px 5px 12px rgba(0,0,0,0.1)" }}>
+                  <p className="text-[14px] font-medium uppercase">Remove from Quick Save</p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setShowRemoveConfirm(false)}
+                      className="flex-1 text-[13px] font-medium uppercase py-1.5 border border-[var(--color-border)] cursor-pointer hover:bg-[var(--color-grey-50)] transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => {
+                        setQuickSaved(false);
+                        setShowRemoveConfirm(false);
+                      }}
+                      className="flex-1 text-[13px] font-medium uppercase py-1.5 bg-[var(--color-action-primary)] text-white cursor-pointer"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+            {/* Additional product images */}
+            <div className="w-full aspect-[2/3] bg-[var(--color-grey-50)] overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&h=900&fit=crop&q=80" alt="Detail view 2" className="w-full h-full object-cover" />
+            </div>
+            <div className="w-full aspect-square bg-[var(--color-grey-50)] overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=600&h=600&fit=crop&q=80" alt="Detail view 3" className="w-full h-full object-cover" />
+            </div>
+            <div className="w-full aspect-[2/3] bg-[var(--color-grey-50)] overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&h=900&fit=crop&q=80" alt="Detail view 4" className="w-full h-full object-cover" />
+            </div>
           </div>
         </div>
 
-        {/* Right column - product info */}
-        <div className="w-[60%] flex flex-col gap-6">
+        {/* Right column - product info (sticky on desktop) */}
+        <div className="w-full md:w-[60%] md:sticky md:top-[80px] md:self-start flex flex-col gap-4 md:gap-6">
           {/* Title */}
-          <h1 className="text-[28px] font-semibold uppercase tracking-wide leading-tight">
+          <h1 className="text-xl md:text-[28px] font-semibold uppercase tracking-wide leading-tight">
             {product.title}
           </h1>
 
@@ -89,14 +132,14 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           </div>
 
           {/* CTA buttons */}
-          <div className="flex items-center gap-3">
-            <button className="bg-[var(--color-action-primary)] text-white text-base font-bold uppercase px-[22px] py-[12px] cursor-pointer">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <button className="bg-[var(--color-action-primary)] text-white text-sm md:text-base font-bold uppercase px-4 py-2.5 md:px-[22px] md:py-[12px] cursor-pointer">
               View Product
             </button>
             <div className="relative">
               <button
                 onClick={() => setShowSavePopover((prev) => !prev)}
-                className="bg-[var(--color-action-primary)] text-white text-base font-bold uppercase px-[22px] py-[12px] cursor-pointer"
+                className="bg-[var(--color-action-primary)] text-white text-sm md:text-base font-bold uppercase px-4 py-2.5 md:px-[22px] md:py-[12px] cursor-pointer w-full"
               >
                 Add to Project
               </button>
@@ -109,7 +152,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           </div>
 
           {/* Description */}
-          <p className="text-base text-[var(--color-text-subtle)] leading-[1.5]">
+          <p className="text-sm md:text-base text-[var(--color-text-subtle)] leading-[1.5]">
             A beautifully crafted piece that blends timeless design with modern sensibility.
             Handmade using traditional techniques, this item showcases exceptional
             craftsmanship and attention to detail. Perfect for residential and commercial
@@ -126,7 +169,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             ].map((row) => (
               <div
                 key={row.label}
-                className="flex items-center justify-between py-3 border-b border-[var(--color-border)]"
+                className="flex items-center justify-between py-2 md:py-3 border-b border-[var(--color-border)]"
               >
                 <span className="text-sm text-[var(--color-text-subtle)]">
                   {row.label}
@@ -137,7 +180,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               </div>
             ))}
             {/* Tear sheet row */}
-            <div className="flex items-center justify-between py-3 border-b border-[var(--color-border)]">
+            <div className="flex items-center justify-between py-2 md:py-3 border-b border-[var(--color-border)]">
               <span className="text-sm text-[var(--color-text-subtle)]">Tear sheet</span>
               <button className="text-sm text-[var(--color-text-default)] uppercase font-semibold underline cursor-pointer">
                 Download
@@ -146,12 +189,12 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           </div>
 
           {/* Vendor card */}
-          <div className="bg-[#edebe2] p-5 flex flex-col gap-4">
-            <h3 className="text-[20px] font-semibold uppercase">{vendor.name}</h3>
-            <p className="text-sm text-[var(--color-text-subtle)] leading-[1.5]">
+          <div className="bg-[#edebe2] p-3 md:p-5 flex flex-col gap-3 md:gap-4">
+            <h3 className="text-base md:text-[20px] font-semibold uppercase">{vendor.name}</h3>
+            <p className="text-xs md:text-sm text-[var(--color-text-subtle)] leading-[1.5]">
               {vendor.description}
             </p>
-            <div className="flex flex-col gap-2 text-sm text-[var(--color-text-default)]">
+            <div className="flex flex-col gap-2 text-xs md:text-sm text-[var(--color-text-default)]">
               <span className="flex items-center gap-1.5">
                 <InstagramIcon className="size-4" />
                 @{vendor.instagram}
@@ -176,8 +219,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
       </div>
 
       {/* More Like This section */}
-      <div className="px-5 pb-12">
-        <h2 className="text-[20px] font-semibold uppercase mb-6">More Like This</h2>
+      <div className="px-3 md:px-5 pb-12">
+        <h2 className="text-base md:text-[20px] font-semibold uppercase mb-4 md:mb-6">More Like This</h2>
         <ProductGrid products={relatedProducts} />
       </div>
 

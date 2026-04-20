@@ -8,20 +8,10 @@ type ProductGridProps = {
 };
 
 export default function ProductGrid({ products }: ProductGridProps) {
-  // Split products into 4 columns for masonry layout
-  const columns: Product[][] = [[], [], [], []];
-  products.forEach((product, i) => {
-    columns[i % 4].push(product);
-  });
-
   return (
-    <div className="flex gap-5 items-start w-full">
-      {columns.map((column, colIndex) => (
-        <div key={colIndex} className="flex flex-col gap-2 flex-1 min-w-0">
-          {column.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );

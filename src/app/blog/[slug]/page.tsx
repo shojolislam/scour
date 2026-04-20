@@ -35,12 +35,12 @@ export default function BlogDetailPage() {
 
       <main className="flex flex-col">
         {/* ───────────── 1. Hero Section ───────────── */}
-        <section className="px-5 pb-5">
-          <div className="flex gap-6">
+        <section className="px-3 md:px-5 pb-5">
+          <div className="flex flex-col md:flex-row gap-6">
             {/* Left column - text info */}
-            <div className="flex-1 min-w-0 p-6 flex flex-col justify-between">
+            <div className="flex-1 min-w-0 p-3 md:p-6 flex flex-col justify-between gap-6 md:gap-0">
               <div>
-                <h1 className="text-[40px] font-semibold uppercase tracking-wide leading-[1.1]">
+                <h1 className="text-2xl md:text-[40px] font-semibold uppercase tracking-wide leading-[1.1]">
                   POUL KJ&AElig;RHOLM
                 </h1>
                 <div className="flex flex-col gap-1 mt-4">
@@ -71,18 +71,18 @@ export default function BlogDetailPage() {
         </section>
 
         {/* ───────────── 2. Article Body ───────────── */}
-        <section className="p-5">
-          <div className="flex gap-6">
+        <section className="p-3 md:p-5">
+          <div className="flex flex-col lg:flex-row gap-6">
             {/* Left - large image */}
             <div className="shrink-0">
-              <div className="w-[560px] h-[747px] bg-[var(--color-grey-50)] overflow-hidden">
+              <div className="w-full lg:w-[560px] h-[400px] md:h-[560px] lg:h-[747px] bg-[var(--color-grey-50)] overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=560&h=747&fit=crop&q=80" alt="Poul Kjaerholm furniture" className="w-full h-full object-cover" />
               </div>
             </div>
 
             {/* Right - article text + quote */}
             <div className="flex-1 min-w-0 flex flex-col">
-              <div className="text-lg text-[var(--color-text-default)] leading-[1.5] space-y-4">
+              <div className="text-sm md:text-lg text-[var(--color-text-default)] leading-[1.5] space-y-4">
                 <p>
                   Poul Kj&aelig;rholm was born in 1929 in &Oslash;ster Vr&aring;, a small town in
                   northern Jutland, Denmark. From a young age, he showed an exceptional aptitude
@@ -115,7 +115,7 @@ export default function BlogDetailPage() {
 
               {/* Quote block */}
               <div className="mt-auto pt-10">
-                <blockquote className="text-[40px] font-medium text-center leading-[1.2]">
+                <blockquote className="text-2xl md:text-[40px] font-medium text-center leading-[1.2]">
                   &ldquo;Form is not decoration &mdash; it is the result of material and
                   structure.&rdquo;
                 </blockquote>
@@ -128,15 +128,15 @@ export default function BlogDetailPage() {
         </section>
 
         {/* ───────────── 3. Key Works ───────────── */}
-        <section className="p-5">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold uppercase">Key Works</h2>
+        <section className="p-3 md:p-5">
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <h2 className="text-base md:text-xl font-semibold uppercase">Key Works</h2>
             <OverflowIcon className="size-5 text-[var(--color-text-subtle)]" />
           </div>
 
-          <div className="flex gap-5">
+          <div className="flex gap-3 md:gap-5 overflow-x-auto">
             {keyWorks.map((work) => (
-              <div key={work.title} className="w-[296px] shrink-0">
+              <div key={work.title} className="w-[200px] md:w-[296px] shrink-0">
                 <div className="w-full aspect-[2/3] bg-[var(--color-grey-50)] overflow-hidden">
                   <img src={work.image} alt={work.title} className="w-full h-full object-cover" />
                 </div>
@@ -152,11 +152,11 @@ export default function BlogDetailPage() {
         </section>
 
         {/* ───────────── 4. Collector's Note ───────────── */}
-        <section className="p-5">
-          <h2 className="text-xl font-semibold uppercase mb-4">
+        <section className="p-3 md:p-5">
+          <h2 className="text-base md:text-xl font-semibold uppercase mb-4">
             COLLECTOR&apos;S NOTE &mdash; ON THE IMPORTANCE OF THE E. KOLD CHRISTENSEN STAMP
           </h2>
-          <p className="text-lg text-[var(--color-text-default)] leading-[1.5]">
+          <p className="text-sm md:text-lg text-[var(--color-text-default)] leading-[1.5]">
             For collectors, the manufacturer&apos;s mark is crucial. Pieces produced by E. Kold
             Christensen between 1955 and 1982 bear a distinctive stamp that has become a
             hallmark of authenticity and quality. After Kold Christensen&apos;s death in 1982,
@@ -169,8 +169,8 @@ export default function BlogDetailPage() {
         </section>
 
         {/* ───────────── 5. Additional Article Sections ───────────── */}
-        <section className="p-5 space-y-8">
-          <p className="text-lg text-[var(--color-text-default)] leading-[1.5]">
+        <section className="p-3 md:p-5 space-y-6 md:space-y-8">
+          <p className="text-sm md:text-lg text-[var(--color-text-default)] leading-[1.5]">
             Kj&aelig;rholm&apos;s influence extends far beyond the objects he created. His
             insistence on structural honesty and material integrity established principles that
             continue to guide contemporary furniture design. Each piece serves as both a
@@ -179,8 +179,8 @@ export default function BlogDetailPage() {
           </p>
 
           <div>
-            <h2 className="text-xl font-semibold uppercase mb-3">Design Philosophy</h2>
-            <p className="text-lg text-[var(--color-text-default)] leading-[1.5]">
+            <h2 className="text-base md:text-xl font-semibold uppercase mb-3">Design Philosophy</h2>
+            <p className="text-sm md:text-lg text-[var(--color-text-default)] leading-[1.5]">
               Kj&aelig;rholm&apos;s design philosophy centred on the belief that beauty emerges
               from structural logic rather than applied decoration. He approached each piece as an
               architectural problem, seeking the most elegant solution that honoured both the
@@ -192,8 +192,8 @@ export default function BlogDetailPage() {
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold uppercase mb-3">Legacy</h2>
-            <p className="text-lg text-[var(--color-text-default)] leading-[1.5]">
+            <h2 className="text-base md:text-xl font-semibold uppercase mb-3">Legacy</h2>
+            <p className="text-sm md:text-lg text-[var(--color-text-default)] leading-[1.5]">
               Though Kj&aelig;rholm&apos;s career was cut short by his death in 1980 at the age
               of fifty-one, his body of work remains remarkably cohesive and influential. His
               pieces are held in the permanent collections of major museums worldwide, including
@@ -207,14 +207,14 @@ export default function BlogDetailPage() {
         </section>
 
         {/* ───────────── 6. Pieces in Circulation ───────────── */}
-        <section className="p-5">
-          <h2 className="text-xl font-semibold uppercase mb-6">
+        <section className="p-3 md:p-5">
+          <h2 className="text-base md:text-xl font-semibold uppercase mb-4 md:mb-6">
             Poul Kj&aelig;rholm Pieces in Circulation
           </h2>
 
-          <div className="flex gap-5 items-start w-full">
+          <div className="flex gap-3 md:gap-5 items-start w-full flex-wrap md:flex-nowrap">
             {columns.map((column, colIndex) => (
-              <div key={colIndex} className="flex flex-col gap-2 flex-1 min-w-0">
+              <div key={colIndex} className="flex flex-col gap-2 w-[calc(50%-6px)] md:flex-1 md:min-w-0">
                 {column.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}

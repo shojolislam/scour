@@ -50,8 +50,7 @@ function QuickSavesGrid() {
       {quickSaveImages.map((src, i) => (
         <div
           key={i}
-          className="bg-[var(--color-grey-50)] overflow-hidden"
-          style={{ width: 122, height: 137 }}
+          className="bg-[var(--color-grey-50)] overflow-hidden aspect-[122/137]"
         >
           <img src={src} alt="" className="w-full h-full object-cover" />
         </div>
@@ -90,22 +89,19 @@ function RegularCardGrid({ hasItems, seed }: { hasItems: boolean; seed: string }
     <div className="flex flex-col gap-[3px] rounded-sm overflow-hidden">
       {/* Large top image */}
       <div
-        className="bg-[var(--color-grey-50)] w-full overflow-hidden"
-        style={{ height: 208 }}
+        className="bg-[var(--color-grey-50)] w-full overflow-hidden aspect-[375/208]"
       >
         <img src={images[0]} alt="" className="w-full h-full object-cover" />
       </div>
       {/* Two smaller images side by side */}
       <div className="flex gap-[3px]">
         <div
-          className="bg-[var(--color-grey-50)] flex-1 overflow-hidden"
-          style={{ height: 207 }}
+          className="bg-[var(--color-grey-50)] flex-1 overflow-hidden aspect-[185/207]"
         >
           <img src={images[1]} alt="" className="w-full h-full object-cover" />
         </div>
         <div
-          className="bg-[var(--color-grey-50)] flex-1 overflow-hidden"
-          style={{ height: 207 }}
+          className="bg-[var(--color-grey-50)] flex-1 overflow-hidden aspect-[185/207]"
         >
           <img src={images[2]} alt="" className="w-full h-full object-cover" />
         </div>
@@ -146,14 +142,13 @@ function ProjectCard({
 
   const cardContent = (
     <div
-      className={`relative ${
+      className={`relative w-full sm:w-[calc(50%-10px)] lg:w-[375px] ${
         isEditMode
           ? `border-2 border-dashed border-[var(--color-border)] rounded-sm p-2 cursor-grab ${
               isDragOver ? "bg-[var(--color-grey-50)]" : ""
             }`
           : ""
       }`}
-      style={{ width: 375 }}
       draggable={isEditMode}
       onDragStart={isEditMode ? onDragStart : undefined}
       onDragOver={isEditMode ? onDragOver : undefined}
@@ -263,7 +258,7 @@ export default function ProjectsPage() {
       <div className="h-[60px]" />
 
       {/* Toolbar */}
-      <div className="flex items-center justify-between p-5">
+      <div className="flex items-center justify-between p-3 md:p-5">
         {/* Left: Add project */}
         <button className="flex items-center gap-1.5 cursor-pointer">
           <PlusIcon className="size-4 text-[var(--color-text-default)]" />
@@ -311,7 +306,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Projects grid */}
-      <div className="flex flex-wrap gap-5 px-5 pb-10">
+      <div className="flex flex-wrap gap-3 md:gap-5 px-3 md:px-5 pb-10">
         {projects.map((project, index) => (
           <ProjectCard
             key={project.id}
@@ -330,7 +325,7 @@ export default function ProjectsPage() {
       {isEditMode && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2">
           <InfoIcon className="size-4 text-[var(--color-text-subtle)]" />
-          <span className="text-[16px] text-[var(--color-text-subtle)]">
+          <span className="text-sm md:text-[16px] text-[var(--color-text-subtle)]">
             Drag items around to reorder
           </span>
         </div>

@@ -21,10 +21,16 @@ export default function ProductCard({ product }: ProductCardProps) {
     setShowPopover(false);
   }, []);
 
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowPopover((prev) => !prev);
+  };
+
   return (
     <Link
       href={`/product/${product.id}`}
-      className="flex flex-col items-start w-full group transition-transform duration-200 hover:-translate-y-0.5"
+      className="flex flex-col items-start w-full group relative transition-transform duration-200 hover:-translate-y-0.5"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);
@@ -38,17 +44,26 @@ export default function ProductCard({ product }: ProductCardProps) {
           alt={product.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Bookmark / Close button on hover */}
+
+        {/* Mobile bookmark — always visible */}
+        <button
+          className="absolute top-0 left-0 p-2 backdrop-blur-[7.5px] bg-white/50 z-10 md:hidden"
+          onClick={handleBookmarkClick}
+        >
+          {showPopover ? (
+            <CloseIcon className="size-4 text-[var(--color-text-default)]" />
+          ) : (
+            <BookmarkIcon className="size-4 text-[var(--color-text-default)]" />
+          )}
+        </button>
+
+        {/* Desktop bookmark — visible on hover */}
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered || showPopover ? 1 : 0 }}
           transition={{ duration: 0.15 }}
-          className="absolute top-0 left-0 p-3 backdrop-blur-[7.5px] bg-white/50 z-10"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setShowPopover((prev) => !prev);
-          }}
+          className="absolute top-0 left-0 p-3 backdrop-blur-[7.5px] bg-white/50 z-10 hidden md:block"
+          onClick={handleBookmarkClick}
         >
           <AnimatePresence mode="wait" initial={false}>
             {showPopover ? (
@@ -75,20 +90,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           </AnimatePresence>
         </motion.button>
 
-        {/* Save-to-Project Popover */}
-        {showPopover && (
-          <div className="absolute top-12 left-0 z-50" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
-            <SaveToProjectPopover onClose={handleClosePopover} />
-          </div>
-        )}
-
-        {/* Dimensions on hover */}
+        {/* Dimensions on hover — desktop only */}
         {product.dimensions && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.15 }}
-            className="absolute bottom-0 left-0 p-3 backdrop-blur-[7.5px] bg-white/50"
+            className="absolute bottom-0 left-0 p-3 backdrop-blur-[7.5px] bg-white/50 hidden md:block"
           >
             <span className="text-sm leading-[1.25] text-[var(--color-text-subtle)]">
               {product.dimensions}
@@ -104,8 +112,34 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
 
-      {/* Product info */}
-      <div className="flex items-start py-3 w-full">
+      {/* Save-to-Project Popover — rendered outside overflow-hidden image div */}
+      {showPopover && (
+        <div className="absolute top-12 left-0 z-50" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+          <SaveToProjectPopover onClose={handleClosePopover} />
+        </div>
+      )}
+
+      {/* Mobile product info layout */}
+      <div className="flex md:hidden flex-col gap-1 py-3 w-full text-[var(--color-text-default)]">
+        {product.dimensions && (
+          <p className="text-xs leading-[1.25] text-[var(--color-text-subtle)]">
+            {product.dimensions}
+          </p>
+        )}
+        <p className="font-semibold text-sm leading-[1.25] uppercase w-full">
+          {product.title}
+        </p>
+        <p className="text-sm leading-[1.25]">
+          <span className="font-sans">$</span>
+          <span className="font-mono">{product.price.toLocaleString()}</span>
+        </p>
+        <p className="text-xs leading-[1.25] text-[var(--color-text-subtle)]">
+          {product.seller}{product.location ? ` \u2022 ${product.location}` : ""}
+        </p>
+      </div>
+
+      {/* Desktop product info layout */}
+      <div className="hidden md:flex items-start py-3 w-full">
         <div className="flex flex-col gap-1.5 flex-1 min-w-0 text-[var(--color-text-default)]">
           <p className="font-semibold text-sm leading-[1.25] uppercase w-full">
             {product.title}

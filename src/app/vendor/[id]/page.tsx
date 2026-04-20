@@ -28,7 +28,7 @@ export default function VendorPage({ params }: { params: Promise<{ id: string }>
       <div className="h-[60px]" />
 
       {/* Back button */}
-      <div className="px-5 py-4">
+      <div className="px-3 md:px-5 py-4">
         <Link
           href="/product/1"
           className="inline-flex items-center gap-2 text-sm uppercase font-medium text-[var(--color-text-default)] hover:opacity-70 transition-opacity"
@@ -39,10 +39,10 @@ export default function VendorPage({ params }: { params: Promise<{ id: string }>
       </div>
 
       {/* Vendor header */}
-      <div className="px-5 pb-8 flex flex-col gap-4">
+      <div className="px-3 md:px-5 pb-6 md:pb-8 flex flex-col gap-3 md:gap-4">
         {/* Name row with heart icon */}
         <div className="flex items-start justify-between">
-          <h1 className="text-[28px] font-semibold uppercase tracking-wide leading-tight">
+          <h1 className="text-xl md:text-[28px] font-semibold uppercase tracking-wide leading-tight">
             {vendor.name}
           </h1>
           <button className="cursor-pointer mt-1">
@@ -51,12 +51,12 @@ export default function VendorPage({ params }: { params: Promise<{ id: string }>
         </div>
 
         {/* Description */}
-        <p className="text-[18px] text-[var(--color-text-subtle)] leading-[1.5] max-w-3xl">
+        <p className="text-base md:text-lg text-[var(--color-text-subtle)] leading-[1.5] max-w-3xl">
           {vendor.description}
         </p>
 
         {/* Social links bar */}
-        <div className="flex items-center gap-6 py-4 border-t border-b border-[var(--color-border)] text-sm text-[var(--color-text-default)]">
+        <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6 py-4 border-t border-b border-[var(--color-border)] text-xs md:text-sm text-[var(--color-text-default)]">
           <span className="flex items-center gap-1.5">
             <InstagramIcon className="size-4" />
             @{vendor.instagram}
@@ -73,8 +73,8 @@ export default function VendorPage({ params }: { params: Promise<{ id: string }>
       </div>
 
       {/* Latest Items */}
-      <div className="px-5 pb-12">
-        <h2 className="text-[20px] font-semibold uppercase mb-6">Latest Items</h2>
+      <div className="px-3 md:px-5 pb-12">
+        <h2 className="text-base md:text-[20px] font-semibold uppercase mb-4 md:mb-6">Latest Items</h2>
         <ProductGrid products={latestProducts} />
       </div>
     </div>

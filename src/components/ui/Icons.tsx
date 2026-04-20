@@ -181,6 +181,16 @@ export function InfoIcon({ className = "size-4" }: { className?: string }) {
   );
 }
 
+export function FilterIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="7" y1="12" x2="17" y2="12" />
+      <line x1="10" y1="18" x2="14" y2="18" />
+    </svg>
+  );
+}
+
 export function ScourLogo({ className = "h-7" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 124.205 27.8809" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

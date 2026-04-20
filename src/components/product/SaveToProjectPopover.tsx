@@ -156,11 +156,11 @@ export default function SaveToProjectPopover({ onClose, hideQuickSave = false }:
               placeholder="PROJECT NAME"
               className="flex-1 min-w-0 text-[14px] font-medium uppercase tracking-wide bg-transparent border-b border-[var(--color-text-default)] outline-none py-1 placeholder:text-[var(--color-text-disabled)]"
             />
-            <button onClick={confirmCreateProject} className="cursor-pointer p-0.5">
-              <CheckIcon className="size-4 text-[var(--color-text-default)]" />
-            </button>
             <button onClick={cancelCreateProject} className="cursor-pointer p-0.5">
               <CloseIcon className="size-3.5 text-[var(--color-text-default)]" />
+            </button>
+            <button onClick={confirmCreateProject} className="cursor-pointer p-0.5">
+              <CheckIcon className="size-4 text-[var(--color-text-default)]" />
             </button>
           </motion.div>
         ) : (
@@ -231,11 +231,11 @@ export default function SaveToProjectPopover({ onClose, hideQuickSave = false }:
                         placeholder="FOLDER NAME"
                         className="flex-1 min-w-0 text-[13px] font-medium uppercase tracking-wide bg-transparent border-b border-[var(--color-text-default)] outline-none py-1 placeholder:text-[var(--color-text-disabled)]"
                       />
-                      <button onClick={() => confirmAddSubFolder(index)} className="cursor-pointer p-0.5">
-                        <CheckIcon className="size-3.5 text-[var(--color-text-default)]" />
-                      </button>
                       <button onClick={cancelAddSubFolder} className="cursor-pointer p-0.5">
                         <CloseIcon className="size-3 text-[var(--color-text-default)]" />
+                      </button>
+                      <button onClick={() => confirmAddSubFolder(index)} className="cursor-pointer p-0.5">
+                        <CheckIcon className="size-3.5 text-[var(--color-text-default)]" />
                       </button>
                     </motion.div>
                   ) : (
